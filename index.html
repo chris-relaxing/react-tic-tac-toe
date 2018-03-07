@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+
+    <script src="./js/react.js"></script>
+    <script src="./js/react-dom.js"></script>
+    <script src="./js/babel.js"></script>
+    <script src="./js/ttt.js"></script>
+    <title>React Tic Tac Toe</title>
+    <style>
+    .container {
+      background: black;
+      display: inline-block;
+      border: 5px solid black;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      grid-template-rows: repeat(3, 80px);
+      grid-gap: 5px;
+    }
+
+    .cell {
+       /* center the cell content */
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      font-family: Arial;
+      font-size: 3rem;
+      font-weight: bold;
+      background: white;
+
+        /* Make the text unselectable in Firefox   */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>React Tic Tac Toe</h2>
+    <div id="app"> </div>
+
+  </body>
+</html>
