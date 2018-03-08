@@ -13,6 +13,16 @@
 
     <title>React Tic Tac Toe</title>
     <style>
+    /* body {
+        font-family: Arial, sans-serif;
+        color:#f2f2f2;
+        position:relative;
+        background:#40464b;
+        height:100%;
+        padding:40px 2%;
+        margin:0;
+    } */
+
     .container {
       background: black;
       display: inline-block;
@@ -44,6 +54,62 @@
       -ms-user-select: none;
       user-select: none;
     }
+
+    .cell:hover {
+      background: #ccc;
+    }
+
+    .component {
+      margin-left: 5px;
+      background: white;
+      display: inline-block;
+      width: 240px;
+      justify-content: center;
+      align-items: center;
+      /* border: 3px solid #ccc; */
+    }
+
+    .center-label {
+      margin-left: 5px;
+      margin-right: auto;
+      width: 240px;
+      /* border: 1px solid black; */
+      text-align: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 50px);
+      grid-template-rows: repeat(1, 50px);
+      grid-gap: 50px;
+      justify-content: center;
+    }
+
+    .cell-2 {
+      border: 3px solid #ccc;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      font-family: Arial;
+      color: #ccc;
+      font-size: 2.6rem;
+      font-weight: bold;
+      background: white;
+      cursor: pointer;
+    }
+
+    .cell-2:hover {
+      border: 3px solid #222;
+      color: #222;
+      background: #ccc;
+    }
+
+    .cell-2:active {
+      border: 3px solid #222;
+      color: #222;
+      background: #ccc;
+    }
+
     </style>
   </head>
   <body>
