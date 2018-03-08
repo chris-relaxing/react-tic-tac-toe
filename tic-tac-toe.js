@@ -13,8 +13,7 @@ class Game extends React.Component {
     this.populateXLocations = this.populateXLocations.bind(this);
     this.cellClicked = this.cellClicked.bind(this);
     this.updateBoard = this.updateBoard.bind(this);
-    this.startGame = this.startGame.bind(this);
-    this.gameOver = this.gameOver.bind(this);
+    this.newGame = this.newGame.bind(this);
     this.changeTurns = this.changeTurns.bind(this);
     this.setGameInProgress = this.setGameInProgress.bind(this);
 
@@ -26,6 +25,9 @@ class Game extends React.Component {
       number_of_turns: 1,
       currentTurn: 'X',
       gameInProgress: false,
+      winner: "",
+      gameWon: false,
+      catsGame: false
     };
   }
 
@@ -54,7 +56,6 @@ class Game extends React.Component {
   }
 
   cellClicked(id){
-    // this.startGame();
     this.updateBoard(id);
     this.populateXLocations(id);
     this.populateOLocations(id);
@@ -62,16 +63,11 @@ class Game extends React.Component {
     this.changeTurns();
   }
 
-  startGame(){
+  newGame(){
     this.setState({
-      gameInProgress: true
-    });
-  }
-
-  gameOver(){
-    this.setState({
+      currentTurn: 'X',
+      x_and_os: ['', '', '', '', '', '', '', '', ''],
       gameInProgress: false,
-      x_and_os: ['', '', '', '', '', '', '', '', '']
     });
   }
 
@@ -120,6 +116,10 @@ class Game extends React.Component {
           if(win.size === 3){
             let winarray = Array.from(win);
             console.log("X is the Winner!" , winarray);
+            this.setState({
+              winner: "X",
+              gameWon: true
+            });
           }
         }
     }
@@ -139,6 +139,10 @@ class Game extends React.Component {
           if(win.size === 3){
             let winarray = Array.from(win);
             console.log("O is the Winner!" , winarray);
+            this.setState({
+              winner: "O",
+              gameWon: true
+            });
           }
         }
     }
@@ -150,18 +154,32 @@ class Game extends React.Component {
       <div>
         <div className="container">
           <div className="grid">
-            <Cell className="cell" id="1" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="2" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="3" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="4" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="5" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="6" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="7" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="8" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
-            <Cell className="cell" id="9" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="1" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="2" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="3" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="4" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="5" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="6" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="7" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="8" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
+            <Cell className="cell" id="9" currentTurn={this.state.currentTurn} xo={this.state.x_and_os}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
           </div>
         </div>
-        <Choosefirstplayer currentTurn={this.state.currentTurn} changeTurns={this.changeTurns} setGameInProgress={this.setGameInProgress} gameinprogress={this.state.gameInProgress}/>
+        <Choosefirstplayer currentTurn={this.state.currentTurn}
+                           changeTurns={this.changeTurns}
+                           setGameInProgress={this.setGameInProgress}
+                           gameinprogress={this.state.gameInProgress}
+                           winner={this.state.winner}
+                           gameWon={this.state.gameWon}/>
     </div>
     )
   }
@@ -185,7 +203,13 @@ class Choosefirstplayer extends React.Component {
 
   render() {
     if (this.props.gameinprogress){
-      return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
+      if (this.props.gameWon){
+        return <h1 className="center-label">Player {this.props.winner} Wins! </h1>;
+      }
+      else {
+        return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
+      }
+
     }
     else {
       return (
@@ -274,17 +298,9 @@ class Playerbox extends React.Component {
    }
 
 
- // function Gamestate(props) {
- //   const gameInProgress = props.gameInProgress;
- //   if (gameInProgress) {
- //     return <Game/>;
- //   }
- //   return <h2>Game over!</h2>;
- // }
-
 ReactDOM.render(
   <div>
-    <h1>React Tic-Tac-Toe</h1>
+    <h1 style={{fontFamily:"Arial"}}>React Tic-Tac-Toe</h1>
     <Game/>
   </div>
   ,
