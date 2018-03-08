@@ -15,6 +15,8 @@ class Game extends React.Component {
     this.updateBoard = this.updateBoard.bind(this);
     this.startGame = this.startGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
+    this.changeTurns = this.changeTurns.bind(this);
+    this.setGameInProgress = this.setGameInProgress.bind(this);
 
     // set initial states
     this.state = {
@@ -25,6 +27,13 @@ class Game extends React.Component {
       currentTurn: 'X',
       gameInProgress: false,
     };
+  }
+
+  setGameInProgress(){
+    this.setState({
+      gameInProgress: !this.state.gameInProgress
+    });
+    console.log("Game in progress: " + this.state.gameInProgress)
   }
 
   updateBoard(id) {
@@ -67,10 +76,11 @@ class Game extends React.Component {
   }
 
   changeTurns(){
-    console.log("NumberTurns: " + this.state.number_of_turns)
+    // console.log("NumberTurns: " + this.state.number_of_turns)
+    // console.log("changeTurns() currentTurn:" + this.state.currentTurn)
     let new_turn = (this.state.currentTurn == "X") ? "O" : "X"
     this.setState({ currentTurn: new_turn })
-    console.log("currentTurn is now " + this.state.currentTurn)
+    // console.log("currentTurn is now " + this.state.currentTurn)
   }
 
   populateXLocations(x_id){
@@ -151,7 +161,7 @@ class Game extends React.Component {
             <Cell className="cell" id="9" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked}/>
           </div>
         </div>
-        <Choosefirstplayer currentTurn={this.state.currentTurn} changeTurns={this.changeTurns} gameinprogress={this.state.gameInProgress}/>
+        <Choosefirstplayer currentTurn={this.state.currentTurn} changeTurns={this.changeTurns} setGameInProgress={this.setGameInProgress} gameinprogress={this.state.gameInProgress}/>
     </div>
     )
   }
@@ -163,27 +173,36 @@ class Choosefirstplayer extends React.Component {
      this.selectFirst = this.selectFirst.bind(this);
   }
   selectFirst(fp){
-      console.log("currentTurn:", this.props.currentTurn)
+      // console.log("currentTurn:", this.props.currentTurn)
       console.log("Made it to selectFirst.", fp)
       if (fp === 'O'){
         this.props.changeTurns();
       }
-      console.log("currentTurn:", this.props.currentTurn)
+      this.props.setGameInProgress();
+      // console.log("currentTurn:", this.props.currentTurn)
 
   }
 
   render() {
     if (this.props.gameinprogress){
-      return <h3>Current turn: X</h3>;
+      return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
     }
     else {
       return (
         <div>
-          <h3 className="center-label">Choose who goes first:</h3>
+          <h3 className="center-label">New Game:<br/>Choose who goes first:</h3>
           <div className="component">
             <div className="grid-2">
-              <Playerbox className="cell-2" selectFirst={this.selectFirst} firstplayer="X" />
-              <Playerbox className="cell-2" selectFirst={this.selectFirst} firstplayer="O" />
+              <Playerbox className="cell-2" selectFirst={this.selectFirst}
+                                            changeTurns={this.props.changeTurns}
+                                            currentTurn={this.props.currentTurn}
+                                            setGameInProgress={this.props.setGameInProgress}
+                                            firstplayer="X" />
+              <Playerbox className="cell-2" selectFirst={this.selectFirst}
+                                            changeTurns={this.props.changeTurns}
+                                            currentTurn={this.props.currentTurn}
+                                            setGameInProgress={this.props.setGameInProgress}
+                                            firstplayer="O" />
             </div>
           </div>
         </div>
