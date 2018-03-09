@@ -1,14 +1,9 @@
-// To Do:
-// When there is a winner, the game is over. So change the game state.
-// Highlight the rows for the win by changing the background color. And give a message.
-// A button should appear for restarting the game, after selecting who goes first. (radio buttons)
 
+// The Game componenet is the parent component. It keeps track of most of the state in the game.
+// It also renders the game board.
 class Game extends React.Component {
   constructor(props) {
     super(props)
-
-    // this.someMethod = this.someMethod.bind(this);
-    // this.someMethod2 = this.someMethod2.bind(this);
     this.incrementNumberTurns = this.incrementNumberTurns.bind(this);
     this.populateXLocations = this.populateXLocations.bind(this);
     this.cellClicked = this.cellClicked.bind(this);
@@ -35,7 +30,6 @@ class Game extends React.Component {
     this.setState({
       gameInProgress: !this.state.gameInProgress
     });
-    // console.log("Game in progress: " + this.state.gameInProgress)
   }
 
   updateBoard(id) {
@@ -64,8 +58,7 @@ class Game extends React.Component {
   }
 
   newGame(){
-    console.log("Entering newGame")
-    // reset states
+    // reset all states
     let new_board = ['', '', '', '', '', '', '', '', ''];
     let x_loc = [];
     let o_loc = [];
@@ -80,17 +73,11 @@ class Game extends React.Component {
       gameWon: false,
       catsGame: false,
     });
-    console.log("newGame() Board so far: " + this.state.x_and_os);
-    console.log("newGame() x_locations: " + this.state.x_locations);
-
   }
 
   changeTurns(){
-    // console.log("NumberTurns: " + this.state.number_of_turns)
-    // console.log("changeTurns() currentTurn:" + this.state.currentTurn)
     let new_turn = (this.state.currentTurn == "X") ? "O" : "X"
     this.setState({ currentTurn: new_turn })
-    // console.log("currentTurn is now " + this.state.currentTurn)
   }
 
   populateXLocations(x_id){
@@ -134,7 +121,6 @@ class Game extends React.Component {
               winner: "X",
               gameWon: !this.state.gameWon
             });
-            // console.log("X game won?" , this.state.gameWon);
           }
         }
     }
@@ -158,12 +144,10 @@ class Game extends React.Component {
               winner: "O",
               gameWon: !this.state.gameWon
             });
-            // console.log("O game won?" , this.state.gameWon);
           }
         }
     }
   }
-
 
   render() {
     return (
@@ -202,20 +186,18 @@ class Game extends React.Component {
   }
 }
 
+// The Choosefirstplayer componenet is a child component that allows the player to choose either X or O to go first.
 class Choosefirstplayer extends React.Component {
   constructor(props) {
      super(props)
      this.selectFirst = this.selectFirst.bind(this);
   }
   selectFirst(fp){
-      // console.log("currentTurn:", this.props.currentTurn)
       console.log("Made it to selectFirst.", fp)
       if (fp === 'O'){
         this.props.changeTurns();
       }
       this.props.setGameInProgress();
-      // console.log("currentTurn:", this.props.currentTurn)
-
   }
 
   render() {
@@ -227,13 +209,10 @@ class Choosefirstplayer extends React.Component {
             <Playagain className="cell-3" newGame={this.props.newGame} gameWon={this.props.gameWon}/>
           </div>
         )
-
-
       }
       else {
         return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
       }
-
     }
     else {
       return (
@@ -259,7 +238,7 @@ class Choosefirstplayer extends React.Component {
   }
 }
 
-
+// The Playerbox component is a child of the Choosefirstplayer component. It renders the hoverable X and O 'buttons'.
 class Playerbox extends React.Component {
   constructor(props) {
      super(props)
@@ -280,19 +259,16 @@ class Playerbox extends React.Component {
   }
 }
 
+// The Playagain component is a child of the Choosefirstplayer component. It renders the hoverable Play Again button.
 class Playagain extends React.Component {
   constructor(props) {
      super(props)
-     // this.state = {  }
      this.handleClick = this.handleClick.bind(this);
   }
-
   handleClick (){
     console.log("Playagain gameWon?",this.props.gameWon);
     this.props.newGame();
-
   }
-
   render() {
       return (
         <div className="component">
@@ -304,54 +280,46 @@ class Playagain extends React.Component {
   }
 }
 
-   class Cell extends React.Component {
-     constructor(props) {
-        super(props)
-        // set initial state
-        this.state = {
-          clicked: false,
-        }
-       this.handleClick = this.handleClick.bind(this);
+// The Cell component is a child of the Game component. It renders each of the individual
+// cells on the boards and monitors them for clicks.
+ class Cell extends React.Component {
+   constructor(props) {
+      super(props)
+      this.state = {
+        clicked: false,
+      }
+     this.handleClick = this.handleClick.bind(this);
+   }
+   handleClick (){
+     this.setState({
+       clicked: !this.state.clicked,
+     });
+
+     let clicked_id = this.props.id;
+     console.log("Cell " + clicked_id + " was clicked");
+
+     if(this.props.gameWon){
+       this.props.newGame();
      }
-     handleClick (){
-
-       this.setState({
-         clicked: !this.state.clicked,
-       });
-
-       let clicked_id = this.props.id;
-       console.log("Cell " + clicked_id + " was clicked");
-
-       // console.log("Cell Game won?", this.props.gameWon);
-       if(this.props.gameWon){
-         this.props.newGame();
+     else {
+       if (this.props.gameinprogress){
+         // Call the parent functions:
+         this.props.incrementNumberTurns();
+         this.props.cellClicked(clicked_id);
        }
-       else {
-         if (this.props.gameinprogress){
-           // Call the parent functions:
-           this.props.incrementNumberTurns();
-           this.props.cellClicked(clicked_id);
-         }
-       }
-
-
-       // this.props.someMethod(this.props.id);
-       // this.props.someMethod2(this.props.id);
-       // console.log("Child communication, number of turns from parent: ", this.props.numturns);
-     }
-
-     render() {
-        // The value of the cells should come not from the click, but from a stored state
-        // in the parent.
-        return (
-          <div className="cell" onClick={this.handleClick} id={this.props.id}>
-            {this.props.xo[this.props.id-1]}
-          </div>
-        )
      }
    }
 
-// {this.state.clicked ? this.props.xo[this.props.id-1] : ""}
+   render() {
+      return (
+        <div className="cell" onClick={this.handleClick} id={this.props.id}>
+          {this.props.xo[this.props.id-1]}
+        </div>
+      )
+   }
+ }
+
+// This is the main React render(). It loads the parent component Game.
 ReactDOM.render(
   <div>
     <h1 style={{fontFamily:"Arial"}}>React Tic-Tac-Toe</h1>
@@ -360,7 +328,7 @@ ReactDOM.render(
   ,
   document.getElementById('app'));
 
-
+// This Set function is for enabling set intersection in order to check for winning combos.
 Set.prototype.intersection = function(setB) {
   var intersection = new Set();
   for (var elem of setB) {
