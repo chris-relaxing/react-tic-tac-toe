@@ -10,4 +10,4 @@ This is my first React.js app, written without following a tutorial.
 This game can be played on my website here:<BR>
 http://bluegalaxy.info/js/react-tic-tac-toe/
 
-![alt text](http://bluegalaxy.info/images/react-tic-tac-toe.png)
+![alt text](http://bluegalaxy.info/images/react-tic-tac-toe2.png)
