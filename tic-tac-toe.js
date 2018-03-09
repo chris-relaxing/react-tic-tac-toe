@@ -11,13 +11,14 @@ class Game extends React.Component {
     this.newGame = this.newGame.bind(this);
     this.changeTurns = this.changeTurns.bind(this);
     this.setGameInProgress = this.setGameInProgress.bind(this);
+    this.setCatsGame = this.setCatsGame.bind(this);
 
     // set initial states
     this.state = {
       x_locations : [],
       o_locations : [],
       x_and_os: ['', '', '', '', '', '', '', '', ''],   // to keep track of the board
-      number_of_turns: 1,
+      number_of_turns: 0,
       currentTurn: 'X',
       gameInProgress: false,
       winner: "",
@@ -29,6 +30,12 @@ class Game extends React.Component {
   setGameInProgress(){
     this.setState({
       gameInProgress: !this.state.gameInProgress
+    });
+  }
+
+  setCatsGame(){
+    this.setState({
+      catsGame: !this.state.catsGame
     });
   }
 
@@ -154,33 +161,35 @@ class Game extends React.Component {
       <div>
         <div className="container">
           <div className="grid">
-            <Cell className="cell" id="1" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="2" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="3" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="4" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="5" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="6" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="7" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="8" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
-            <Cell className="cell" id="9" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon}
-                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress}/>
+            <Cell className="cell" id="1" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="2" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="3" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="4" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="5" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="6" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="7" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="8" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
+            <Cell className="cell" id="9" currentTurn={this.state.currentTurn} xo={this.state.x_and_os} newGame={this.newGame} gameWon={this.state.gameWon} numturns={this.state.number_of_turns}
+                                          incrementNumberTurns={this.incrementNumberTurns} cellClicked={this.cellClicked} gameinprogress={this.state.gameInProgress} setCatsGame={this.setCatsGame}/>
           </div>
         </div>
         <Choosefirstplayer currentTurn={this.state.currentTurn}
+                           catsGame={this.state.catsGame}
                            changeTurns={this.changeTurns}
                            setGameInProgress={this.setGameInProgress}
                            gameinprogress={this.state.gameInProgress}
                            newGame={this.newGame}
                            winner={this.state.winner}
-                           gameWon={this.state.gameWon}/>
+                           gameWon={this.state.gameWon}
+                           numturns={this.state.number_of_turns}/>
     </div>
     )
   }
@@ -211,7 +220,17 @@ class Choosefirstplayer extends React.Component {
         )
       }
       else {
-        return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
+        if (this.props.catsGame || this.props.numturns == 9){
+          return (
+              <div>
+                <h1 className="center-label">Cat&#39;s Game!</h1>
+                <Playagain className="cell-3" newGame={this.props.newGame} gameWon={this.props.gameWon}/>
+              </div>
+          )
+        }
+        else {
+          return <h1 className="center-label">Current turn: {this.props.currentTurn}</h1>;
+        }
       }
     }
     else {
@@ -302,7 +321,13 @@ class Playagain extends React.Component {
        this.props.newGame();
      }
      else {
-       if (this.props.gameinprogress){
+       // console.log("CatsGame? NumberTurns so far: " + this.props.numturns);
+       if (this.props.numturns == 9){
+         console.log("CatsGame!");
+         this.props.setCatsGame();
+       }
+
+       else if (this.props.gameinprogress){
          // Call the parent functions:
          this.props.incrementNumberTurns();
          this.props.cellClicked(clicked_id);

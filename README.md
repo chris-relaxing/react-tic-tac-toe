@@ -7,7 +7,7 @@ This is my first React.js app, written without following a tutorial.
 * CSS
 * HTML
 
-This game can be played on my website here:
+This game can be played on my website here:<BR>
 http://bluegalaxy.info/js/react-tic-tac-toe/
 
 ![alt text](http://bluegalaxy.info/images/react-tic-tac-toe.png)
