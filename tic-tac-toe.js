@@ -48,20 +48,26 @@ class Game extends React.Component {
     console.log("Board so far: " + this.state.x_and_os)
   }
 
-  incrementNumberTurns() {
-    console.log("NumberTurns so far: " + this.state.number_of_turns)
-    var prevCount = this.state.number_of_turns;
-    this.setState({
-      number_of_turns: prevCount += 1
-    });
+  incrementNumberTurns(id) {
+    // Make sure the number of turns is not being updated if the player clicks a cell that is already filled
+    if(this.state.x_and_os[id-1] == '') {
+      console.log("NumberTurns so far: " + this.state.number_of_turns)
+      var prevCount = this.state.number_of_turns;
+      this.setState({
+        number_of_turns: prevCount += 1
+      });
+    }
   }
 
   cellClicked(id){
-    this.updateBoard(id);
-    this.populateXLocations(id);
-    this.populateOLocations(id);
-    this.checkForWinner();
-    this.changeTurns();
+    // Make sure the player can't click a cell that has already been clicked
+    if(this.state.x_and_os[id-1] == '') {
+      this.updateBoard(id);
+      this.populateXLocations(id);
+      this.populateOLocations(id);
+      this.checkForWinner();
+      this.changeTurns();
+    }
   }
 
   newGame(){
@@ -329,7 +335,7 @@ class Playagain extends React.Component {
 
        else if (this.props.gameinprogress){
          // Call the parent functions:
-         this.props.incrementNumberTurns();
+         this.props.incrementNumberTurns(clicked_id);
          this.props.cellClicked(clicked_id);
        }
      }
