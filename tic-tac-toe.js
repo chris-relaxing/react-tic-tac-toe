@@ -1,5 +1,5 @@
 
-// The Game componenet is the parent component. It keeps track of most of the state in the game.
+// The Game component is the parent component. It keeps track of most of the state in the game.
 // It also renders the game board.
 class Game extends React.Component {
   constructor(props) {
@@ -201,7 +201,7 @@ class Game extends React.Component {
   }
 }
 
-// The Choosefirstplayer componenet is a child component that allows the player to choose either X or O to go first.
+// The Choosefirstplayer component is a child component that allows the player to choose either X or O to go first.
 class Choosefirstplayer extends React.Component {
   constructor(props) {
      super(props)
